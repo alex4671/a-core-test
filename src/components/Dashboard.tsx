@@ -12,11 +12,13 @@ const GET_TREE = gql(`
       tree {
         id
         name
+        description
         sort
         classTypes {
           id
           name
           sort
+          description
           standard
           code
         }

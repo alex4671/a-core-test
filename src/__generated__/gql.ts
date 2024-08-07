@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        sort\n        classTypes {\n          id\n          name\n          sort\n          standard\n          code\n        }\n      }\n    }\n  }\n": types.Get_TreeDocument,
+    "\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        description\n        sort\n        classTypes {\n          id\n          name\n          sort\n          description\n          standard\n          code\n        }\n      }\n    }\n  }\n": types.Get_TreeDocument,
     "\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      organizations {\n        id\n        name\n        users {\n          id\n          name\n          surname\n          email\n        }\n      }\n    }\n  }\n": types.LoginDocument,
 };
 
@@ -34,7 +34,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        sort\n        classTypes {\n          id\n          name\n          sort\n          standard\n          code\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        sort\n        classTypes {\n          id\n          name\n          sort\n          standard\n          code\n        }\n      }\n    }\n  }\n"];
+export function gql(source: "\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        description\n        sort\n        classTypes {\n          id\n          name\n          sort\n          description\n          standard\n          code\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Get_Tree {\n    modelTreeClasses {\n      tree {\n        id\n        name\n        description\n        sort\n        classTypes {\n          id\n          name\n          sort\n          description\n          standard\n          code\n        }\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

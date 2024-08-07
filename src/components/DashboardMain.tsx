@@ -14,6 +14,7 @@ import {
   useTree,
 } from "@mantine/core";
 import { IconChevronDown, IconTemperatureCelsius } from "@tabler/icons-react";
+import { useState } from "react";
 import type { TreeNode } from "../utils/formatters";
 
 const elements = [
@@ -41,8 +42,7 @@ const elements = [
 
 export const DashboardMain = ({ data }: { data: TreeNode[] }) => {
   const tree = useTree();
-
-  const selectedNode = tree.selectedState[0] || "";
+  const [selected, setSelected] = useState<string>("");
 
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
@@ -77,7 +77,7 @@ export const DashboardMain = ({ data }: { data: TreeNode[] }) => {
             data={data}
             levelOffset={42}
             expandOnClick={false}
-            renderNode={renderTreeNode}
+            renderNode={(props) => renderTreeNode({ ...props, setSelected })}
           />
         ) : (
           <Text>Ничего не найдено</Text>
@@ -88,7 +88,8 @@ export const DashboardMain = ({ data }: { data: TreeNode[] }) => {
           <Textarea
             label="Описание"
             rows={4}
-            defaultValue={selectedNode}
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
             styles={{ input: { backgroundColor: "#fbfbfb" } }}
           />
           <Text mt="xl">Свойства</Text>
@@ -128,16 +129,22 @@ export const DashboardMain = ({ data }: { data: TreeNode[] }) => {
   );
 };
 
+interface RenderTreeNodeProps extends RenderTreeNodePayload {
+  setSelected: (val: string) => void;
+}
+
 const renderTreeNode = ({
   node,
   expanded,
   hasChildren,
   elementProps,
   tree,
-}: RenderTreeNodePayload) => {
+  setSelected,
+}: RenderTreeNodeProps) => {
   const checked = tree.isNodeChecked(node.value);
   const indeterminate = tree.isNodeIndeterminate(node.value);
-  const label = node.label?.toString() as string;
+
+  const description = node.value.split(":")[1];
 
   return (
     <Group gap="xs" {...elementProps}>
@@ -157,7 +164,7 @@ const renderTreeNode = ({
           }
           size="xs"
         />
-        <Text fz="lg" onClick={() => tree.select(label)}>
+        <Text fz="lg" onClick={() => setSelected(description)}>
           {node.label}
         </Text>
       </Group>

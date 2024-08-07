@@ -28,11 +28,11 @@ export const generateTreeData = (
       if (tree) {
         const treeNode: TreeNode = {
           label: tree.name,
-          value: `tree-${tree.id}`,
+          value: `tree-${tree.id}:${tree.description}`,
           sort: tree.sort,
           children: tree.classTypes?.map((classType) => ({
             label: classType.name,
-            value: `classType-${tree.id}-${classType.id}`,
+            value: `classType-${tree.id}-${classType.id}:${classType.description}`,
             sort: classType.sort,
           })),
         };
